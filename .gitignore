@@ -1,0 +1,13 @@
+*/target/
+.classpath
+.project
+.settings
+
+### IntelliJ IDEA ###
+*/*.iws
+*/*.iml
+*/*.ipr
+*/target/
+*/.idea/
+*/temp/
+*/webapp/temp/
