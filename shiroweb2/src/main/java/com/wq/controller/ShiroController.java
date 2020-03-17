@@ -20,7 +20,10 @@ public class ShiroController {
     public String login(String username, String password) {//登录功能不能被shiro校验，否则永不能登录
         try {
             Subject subject = SecurityUtils.getSubject();
-            subject.login(new UsernamePasswordToken(username, password));
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            //如果需要记住我的话，需要在token中设置
+            token.setRememberMe(true);//shiro默认支持”记住我“，只要有此设置则自动运作。
+            subject.login(token);
             String uname = (String) subject.getPrincipal();
             System.out.println("uname:" + uname);
         } catch (AuthenticationException e) {
