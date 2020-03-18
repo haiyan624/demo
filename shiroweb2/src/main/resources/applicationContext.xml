@@ -12,5 +12,7 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <import resource="classpath:shiro-spring.xml"/>
+    <import resource="classpath:spring-shiro.xml"/>
+    <!--这里只要mybatis的配置-->
+    <import resource="classpath:spring-mybatis.xml"/>
 </beans>

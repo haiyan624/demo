@@ -1,6 +1,7 @@
 package com.wq.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -8,14 +9,12 @@ import lombok.Data;
  * 
  */
 @Data
-public class User implements Serializable {
+public class Permission implements Serializable {
     private Integer id;
 
-    private String username;
+    private String permissionName;
 
-    private String password;
-
-    private String salt;
+    private Date createTime;
 
     private static final long serialVersionUID = 1L;
 }

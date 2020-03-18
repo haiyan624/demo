@@ -9,14 +9,13 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.web.context.ContextLoader;
 
 import java.util.Set;
 
 @Setter
 public class MyRealm extends AuthorizingRealm {
 
-    private UserService userService;
+    private  UserService userService;
 
 
     /**
@@ -49,8 +48,6 @@ public class MyRealm extends AuthorizingRealm {
         //获得用户名
         String username = (String) token.getPrincipal();
         System.out.println("user:" + username + " is authenticating~~");
-        UserService userService =
-                (UserService) ContextLoader.getCurrentWebApplicationContext().getBean("userService");
         //身份认证
         User user = userService.queryUser(username);
         System.out.println("user:" + user);
@@ -92,8 +89,6 @@ public class MyRealm extends AuthorizingRealm {
         //新建SimpleAuthorizationInfo对象
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //查询当前用户的所有 "角色" 和 "权限"
-        UserService userService =
-                (UserService) ContextLoader.getCurrentWebApplicationContext().getBean("userService");
         Set<String> roles = userService.queryRolesByUsername(username);
         Set<String> perms = userService.queryPermissionsByUsername(username);
         //“角色” 和 “权限” 存入 SimpleAuthorizationInfo对象

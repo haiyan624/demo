@@ -8,14 +8,12 @@ import lombok.Data;
  * 
  */
 @Data
-public class User implements Serializable {
+public class RolePermission implements Serializable {
     private Integer id;
 
-    private String username;
+    private Integer permissionId;
 
-    private String password;
-
-    private String salt;
+    private Integer roleId;
 
     private static final long serialVersionUID = 1L;
 }

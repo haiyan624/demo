@@ -10,7 +10,7 @@
     <!-- shiro -->
     <!-- 声明realm -->
     <bean id="realm1" class="com.wq.shiro.MyRealm">
-        <property name="userService" ref="userService"/>
+        <property name="userService" ref="userServiceImpl"/>
         <!-- 此属性如果通过注解注入，则需要将注解加载set方法上，不能用在属性上。
               此属性是父类属性，所以只有在set方法上注入，才能覆盖父类属性值。
         -->
@@ -26,8 +26,8 @@
     <!-- 声明SecurityManager -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="realm1"/>
-        <property name="rememberMeManager" ref="rememberMeManager"/>
-        <property name="sessionManager" ref="sessionManager"/>
+        <!--<property name="rememberMeManager" ref="rememberMeManager"/>
+        <property name="sessionManager" ref="sessionManager"/>-->
     </bean>
     <!-- 生产SpringShiroFilter
          （ 持有shiro的过滤相关规则，可进行请求的过滤校验，校验请求是否合法 ）
@@ -37,35 +37,32 @@
         <property name="securityManager" ref="securityManager"/>
 
 
- <!--       &lt;!&ndash; 在使用了注解之后，就不用ShiroFilter来校验了，开始使用代理了 &ndash;&gt;
+        <!-- 在使用了注解之后，就不用ShiroFilter来校验了，开始使用代理了 -->
         <property name="loginUrl" value="/user/login/page"/>
         <property name="unauthorizedUrl" value="/error.jsp"/>
         <property name="filterChainDefinitions">
             <value>
-                /user/query=anon
-                /user/insert=authc,roles["banfu"]
-                /user/update=authc,perms[""student:update""]
-                /order/insert=authc,roles["xuewei"]
+                /user/regist=anon
                 /user/logout=logout
             </value>
-        </property>-->
+        </property>
     </bean>
     <!-- 之前的配置不变，添加如下配置 -->
     <!-- remember me -->
-    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <!-- rememberMe是cookie值中的key，value时用户名的密文
+    <!--<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        &lt;!&ndash; rememberMe是cookie值中的key，value时用户名的密文
              cookie["rememberMe":"deleteMe"] 此cookie每次登陆后都会写出，用于清除之前的cookie
              cookie["rememberMe":username的密文] 此cookie也会在登录后写出，用于记录最新的username
             （ops: 如上设计，既能保证每次登陆后重新记录cookie，也能保证切换账号时，记录最新账号）
-        -->
+        &ndash;&gt;
         <property name="name" value="rememberMe"/>
-        <!-- cookie只在http请求中可用，那么通过js脚本将无法读取到cookie信息，有效防止cookie被窃取 -->
+        &lt;!&ndash; cookie只在http请求中可用，那么通过js脚本将无法读取到cookie信息，有效防止cookie被窃取 &ndash;&gt;
         <property name="httpOnly" value="true"/>
-        <!-- cookie的生命周期，单位：秒 -->
-        <property name="maxAge" value="2592000"/><!-- 30天 -->
-    </bean>
-    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
-        <!-- 对cookie的value加密的密钥 建议每个项目都不一样
+        &lt;!&ndash; cookie的生命周期，单位：秒 &ndash;&gt;
+        <property name="maxAge" value="2592000"/>&lt;!&ndash; 30天 &ndash;&gt;
+    </bean>-->
+    <!--<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        &lt;!&ndash; 对cookie的value加密的密钥 建议每个项目都不一样
             加密方式AES(对称加密)
             密钥生成：【KeyGenerator keygen = KeyGenerator.getInstance("AES");
                        SecretKey deskey = keygen.generateKey();
@@ -75,42 +72,42 @@
         <property name="cipherKey"
                   value="#{T(org.apache.shiro.codec.Base64).decode('c+3hFGPjbgzGdrC+MHgoRQ==')}"/>
         此配置可以省略，CookieRememberMeManager自动完成秘钥生成
-        -->
-        <!-- 注入SimpleCookie -->
+        &ndash;&gt;
+        &lt;!&ndash; 注入SimpleCookie &ndash;&gt;
         <property name="cookie" ref="rememberMeCookie"/>
-    </bean>
+    </bean>-->
     <!-- 增加session管理相关配置 -->
     <!-- 会话Cookie模板 默认可省-->
-    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <!-- cookie的 key="sid" -->
+    <!--<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        &lt;!&ndash; cookie的 key="sid" &ndash;&gt;
         <property name="name" value="JSESSIONID"/>
-        <!-- 只允许http请求访问cookie -->
+        &lt;!&ndash; 只允许http请求访问cookie &ndash;&gt;
         <property name="httpOnly" value="true"/>
-        <!-- cookie过期时间，-1:存活一个会话 ,单位:秒 ，默认为-1-->
+        &lt;!&ndash; cookie过期时间，-1:存活一个会话 ,单位:秒 ，默认为-1&ndash;&gt;
         <property name="maxAge" value="-1"/>
-    </bean>
+    </bean>-->
 
-    <bean id="sessionManager"
+    <!--<bean id="sessionManager"
           class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <!-- 默认值和配置中给出的一致，所bean:sessionIdCookie 可以省略 -->
+        &lt;!&ndash; 默认值和配置中给出的一致，所bean:sessionIdCookie 可以省略 &ndash;&gt;
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
-        <!-- session全局超时时间, 单位:毫秒 ，30分钟 默认值为1800000-->
+        &lt;!&ndash; session全局超时时间, 单位:毫秒 ，30分钟 默认值为1800000&ndash;&gt;
         <property name="globalSessionTimeout" value="1800000"/>
         <property name="sessionListeners">
             <list>
                 <bean class="com.wq.shiro.MySessionListener"></bean>
             </list>
         </property>
-        <!-- 开启检测器，默认开启 -->
+        &lt;!&ndash; 开启检测器，默认开启 &ndash;&gt;
         <property name="sessionValidationSchedulerEnabled" value="true"/>
-        <!--- 检测器运行间隔，单位：毫秒  默认1小时
+        &lt;!&ndash;- 检测器运行间隔，单位：毫秒  默认1小时
                 //检测到过期后，会直接将session删除
                 protected void afterExpired(Session session) {
                     if (isDeleteInvalidSessions()) {
                         delete(session);
                     }
                 }
-        -->
+        &ndash;&gt;
         <property name="sessionValidationInterval" value="3600000"/>
-    </bean>
+    </bean>-->
 </beans>

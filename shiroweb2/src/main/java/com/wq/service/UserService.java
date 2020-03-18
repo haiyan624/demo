@@ -5,7 +5,7 @@ import com.wq.entity.User;
 import java.util.Set;
 
 public interface UserService {
-    User insertUser(User user);
+    User registUser(User user);
 
     User queryUser(String username);
 

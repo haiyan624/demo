@@ -1,36 +1,60 @@
 package com.wq.service.impl;
 
+import com.wq.entity.Role;
 import com.wq.entity.User;
+import com.wq.mapper.PermissionMapper;
+import com.wq.mapper.RoleMapper;
+import com.wq.mapper.UserMapper;
 import com.wq.service.UserService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private PermissionMapper permissionMapper;
+
     @Override
-    public User insertUser(User user) {
-//        user.setSalt(UUID.randomUUID().toString());//设置随机盐
-//        //设置加密属性：sha256算法，随机盐，迭代1000次
-//        Sha256Hash sha256Hash = new Sha256Hash(user.getPassword(),user.getSalt(),1000);
-//        //将用户信息 (包括密码的密文 和 盐) 存入数据库
-//        user.setPassword(sha256Hash.toBase64());//密文采用base64格式化
-//        userDAO.createUser(user);
-        return null;
+    public User registUser(User user) {
+        String hashAlgorithmName = "SHA-256";
+        String salt = UUID.randomUUID().toString();
+        int hashIterations = 1000;
+        String password = new SimpleHash(hashAlgorithmName, ByteSource.Util.bytes(user.getPassword()), salt, hashIterations).toHex();
+        user.setPassword(password);
+        user.setSalt(salt);
+        userMapper.insert(user);
+        return user;
     }
 
     @Override
     public User queryUser(String username) {
-        return null;
+        return userMapper.queryUserByUserName(username);
     }
 
     @Override
     public Set<String> queryRolesByUsername(String username) {
-        return null;
+        return roleMapper.queryRolesByUsername(username);
     }
 
     @Override
     public Set<String> queryPermissionsByUsername(String username) {
-        return null;
+        return permissionMapper.queryPermissionsByUsername(username);
     }
 }
