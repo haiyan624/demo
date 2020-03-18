@@ -30,15 +30,15 @@
         <property name="suffix" value=".jsp"></property>
     </bean>
     <!-- enable shiro's annotation-->
-    <bean id="lifecycleBeanPostProcessor"
-          class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!--<bean id="lifecycleBeanPostProcessor"
+          class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>-->
     <!-- 自动代理生成器，等价于aop:config;
          aop:config 或 AutoProxyCreator两者选其一，spring官方提醒千万不要同时使用。
 
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor"/>
     -->
-    <aop:config></aop:config>
+    <!--<aop:config></aop:config>-->
     <!-- 在此bean的构建过程中，初始化了一些额外功能和piontcut
          interceptors.add(new RoleAnnotationMethodInterceptor(resolver));
          interceptors.add(new PermissionAnnotationMethodInterceptor(resolver));
@@ -50,5 +50,5 @@
         <property name="securityManager" ref="securityManager"/>
     </bean>
     <!-- mvc.xml中：MVC的自定义异常处理器,用于处理权限或身份认证不通过时的异常处理-->
-    <bean class="com.wq.shiro.MyExceptionResolver"></bean>
+    <!--<bean class="com.wq.shiro.MyExceptionResolver"></bean>-->
 </beans>

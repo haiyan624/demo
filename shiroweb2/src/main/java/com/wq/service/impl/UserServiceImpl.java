@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
         String hashAlgorithmName = "SHA-256";
         String salt = UUID.randomUUID().toString();
         int hashIterations = 1000;
-        String password = new SimpleHash(hashAlgorithmName, ByteSource.Util.bytes(user.getPassword()), salt, hashIterations).toHex();
+//        String password = new SimpleHash(hashAlgorithmName, ByteSource.Util.bytes(), salt, hashIterations).toHex();
+        String password = new SimpleHash(hashAlgorithmName, user.getPassword(), salt, hashIterations).toBase64();
         user.setPassword(password);
         user.setSalt(salt);
         userMapper.insert(user);

@@ -34,6 +34,15 @@
         </td>
     </tr>
 </table>
-
+<br/>
+<td>
+    <a href="#" style="text-decoration:none">查看详情</a>
+    <shiro:hasPermission name="user:delete">
+        <a href="#" style="text-decoration: none">删除</a>
+    </shiro:hasPermission>
+    <shiro:lacksPermission name="user:delete">
+        <a href="#" style="text-decoration: none" >无权删除</a>
+    </shiro:lacksPermission>
+</td>
 </body>
 </html>

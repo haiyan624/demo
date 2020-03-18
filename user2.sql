@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50543
 File Encoding         : 65001
 
-Date: 2020-03-17 23:15:45
+Date: 2020-03-18 23:58:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,11 +25,12 @@ CREATE TABLE `t_permission` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `permission_name` (`permission_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_permission
 -- ----------------------------
+INSERT INTO `t_permission` VALUES ('1', 'user:delete', '2020-03-18 23:53:19');
 
 -- ----------------------------
 -- Table structure for t_role
@@ -41,11 +42,13 @@ CREATE TABLE `t_role` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `role_name` (`role_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_role
 -- ----------------------------
+INSERT INTO `t_role` VALUES ('1', 'admin', '2020-03-18 23:43:05');
+INSERT INTO `t_role` VALUES ('2', 'manager', '2020-03-18 23:43:12');
 
 -- ----------------------------
 -- Table structure for t_role_permission
@@ -57,11 +60,12 @@ CREATE TABLE `t_role_permission` (
   `role_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `permission_id` (`permission_id`,`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_role_permission
 -- ----------------------------
+INSERT INTO `t_role_permission` VALUES ('1', '1', '1');
 
 -- ----------------------------
 -- Table structure for t_user
@@ -74,11 +78,12 @@ CREATE TABLE `t_user` (
   `salt` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
+INSERT INTO `t_user` VALUES ('1', 'wqtest', 'uJkMLoXWRj51n/39f84lYygVLAQsh96DlIgLRdV1WlU=', '38d0f6bc-dfbf-4364-9065-fc8a906fe591');
 
 -- ----------------------------
 -- Table structure for t_user_role
@@ -90,11 +95,12 @@ CREATE TABLE `t_user_role` (
   `role_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_role
 -- ----------------------------
+INSERT INTO `t_user_role` VALUES ('1', '1', '1');
 
 -- ----------------------------
 -- Table structure for user_info
