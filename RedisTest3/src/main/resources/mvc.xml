@@ -1,20 +1,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 							http://www.springframework.org/schema/beans/spring-beans.xsd
 							http://www.springframework.org/schema/context
 							http://www.springframework.org/schema/context/spring-context.xsd
 							http://www.springframework.org/schema/mvc
-							http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+							http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- 告知SpringMVC  哪些包中 存在 被注解的类
         use-default-filters=true 凡是被 @Controller @Service  @Repository注解的类，都会被扫描
         use-default-filters=false 默认不扫描包内的任何类, 只扫描include-filter中指定的类
         只扫描被@Controller注解的类
     -->
     <!--这里只要扫描controller供mvc使用-->
-    <context:component-scan base-package="wq.controller" use-default-filters="false">
+    <context:component-scan base-package="com.wq" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <!-- 注册注解开发驱动 -->
@@ -29,4 +29,26 @@
         <!-- 后缀 -->
         <property name="suffix" value=".jsp"></property>
     </bean>
+
+    <!-- enable shiro's annotation-->
+    <bean id="lifecycleBeanPostProcessor"
+          class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!-- 自动代理生成器，等价于aop:config;
+         aop:config 或 AutoProxyCreator两者选其一，spring官方提醒千万不要同时使用。
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    -->
+    <aop:config></aop:config>
+    <!-- 在此bean的构建过程中，初始化了一些额外功能和piontcut
+         interceptors.add(new RoleAnnotationMethodInterceptor(resolver));
+         interceptors.add(new PermissionAnnotationMethodInterceptor(resolver));
+         interceptors.add(new AuthenticatedAnnotationMethodInterceptor(resolver));
+         interceptors.add(new UserAnnotationMethodInterceptor(resolver));
+         interceptors.add(new GuestAnnotationMethodInterceptor(resolver));
+    -->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <bean class="com.wq.shiro.MyExceptionResolver"></bean>
 </beans>

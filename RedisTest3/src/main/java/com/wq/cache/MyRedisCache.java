@@ -1,4 +1,4 @@
-package wq.cache;
+package com.wq.cache;
 
 import org.apache.ibatis.cache.Cache;
 import org.springframework.data.redis.core.RedisTemplate;

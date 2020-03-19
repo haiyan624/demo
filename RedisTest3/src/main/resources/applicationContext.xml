@@ -8,7 +8,7 @@
 
     <!--这里不扫描controller，controller是spring mvc使用-->
     <!--配置注释扫描，让spring去发现注解，进而实现对应功能-->
-    <context:component-scan base-package="wq" use-default-filters="true">
+    <context:component-scan base-package="com.wq" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -16,10 +16,8 @@
     <import resource="classpath:applicationContext-redis.xml"/>
 
     <!--这里只要mybatis的配置-->
-    <import resource="classpath:spring-mybatis-config.xml"/>
+    <import resource="classpath:spring-mybatis.xml"/>
 
-    <!--事务管理-->
-    <bean id="tx" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+    <!--shiro配置-->
+    <import resource="classpath:spring-shiro.xml"/>
 </beans>

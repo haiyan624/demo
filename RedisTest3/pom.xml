@@ -139,6 +139,38 @@
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
+
+        <!-- 新增一个依赖 用于在工厂中生产 ShiroFilter-->
+        <!-- 会传递导入shiro-core 和 shiro-web -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <!-- 注解加载Controller中，原理是会对Controller做增强，切入访问控制逻辑，所以需要如下依赖 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>4.3.6.RELEASE</version>
+        </dependency>
+        <!-- ============ Servlet ============ -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
