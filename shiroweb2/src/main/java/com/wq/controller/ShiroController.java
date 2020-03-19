@@ -5,6 +5,7 @@ import com.wq.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.*;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
@@ -21,18 +22,31 @@ public class ShiroController {
     @Autowired
     private UserService userService;
 
+    @RequiresPermissions("user:query")
     @RequestMapping("/auth")
     public String auth() {//访问此删除功能时要先经过shiro的安全校验
         return "WEB-INF/user/authCheck";
     }
 
+    @RequiresRoles(value = {"admin","manager"},logical= Logical.OR)
     @RequestMapping("/success")
     public String success() {//访问此删除功能时要先经过shiro的安全校验
         return "WEB-INF/user/success";
     }
 
+    @RequiresUser
+    @RequestMapping("/success2")
+    public String success2() {//访问此删除功能时要先经过shiro的安全校验
+        return "WEB-INF/user/success";
+    }
+
+    @RequestMapping("/error")
+    public String error() {//访问此删除功能时要先经过shiro的安全校验
+        return "WEB-INF/user/error";
+    }
+
     @RequestMapping("/login/page")
-    public String login() {//访问此删除功能时要先经过shiro的安全校验
+    public String login() {
         return "WEB-INF/user/login";
     }
 

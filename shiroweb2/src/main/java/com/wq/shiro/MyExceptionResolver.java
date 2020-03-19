@@ -18,13 +18,13 @@ public class MyExceptionResolver implements HandlerExceptionResolver {
         ModelAndView mv = new ModelAndView();
         if(ex instanceof IncorrectCredentialsException || ex instanceof UnknownAccountException){
             //跳转登录页面，重新登录
-            mv.setViewName("redirect:/user/login");
+            mv.setViewName("redirect:/user/login/page");
         }else if(ex instanceof UnauthorizedException){// 角色不足  权限不足
             //跳转权限不足的页面
-            mv.setViewName("redirect:/user/perms/error");
+            mv.setViewName("redirect:/user/error");
         }else if(ex instanceof UnauthenticatedException){//没有登录 没有合法身份
             //跳转登录页面，重新登录
-            mv.setViewName("redirect:/user/login");
+            mv.setViewName("redirect:/user/login/page");
         }
         return mv;
     }
