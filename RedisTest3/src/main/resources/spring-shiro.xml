@@ -84,11 +84,15 @@
         -->
         <property name="sessionValidationInterval" value="3600000"/>
     </bean>
+    <bean id="myShiroCacheManager" class="com.wq.cache.MyShiroCacheManager">
+        <property name="redisTemplate" ref="redisTemplate"/>
+    </bean>
     <!-- 声明SecurityManager -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="realm1"/>
         <property name="rememberMeManager" ref="rememberMeManager"/>
         <property name="sessionManager" ref="sessionManager"/>
+        <property name="cacheManager" ref="myShiroCacheManager"/>
     </bean>
     <!-- 生产SpringShiroFilter
          （ 持有shiro的过滤相关规则，可进行请求的过滤校验，校验请求是否合法 ）
