@@ -9,6 +9,7 @@ import com.wq.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registUser(User user) {
         String hashAlgorithmName = "SHA-256";
-        String salt = UUID.randomUUID().toString();
         int hashIterations = 1000;
-//        String password = new SimpleHash(hashAlgorithmName, ByteSource.Util.bytes(), salt, hashIterations).toHex();
-        String password = new SimpleHash(hashAlgorithmName, user.getPassword(), salt, hashIterations).toBase64();
-        user.setPassword(password);
-        user.setSalt(salt);
+
+
+        user.setSalt(UUID.randomUUID().toString());//设置随机盐
+        //设置加密属性：sha256算法，随机盐，迭代1000次
+        Sha256Hash sha256Hash = new Sha256Hash(user.getPassword(), user.getSalt(), hashIterations);
+        // 另一种加密情况
+//        SimpleHash sha256Hash2 = new SimpleHash(hashAlgorithmName, user.getPassword(), user.getSalt(), hashIterations);
+
+        //将用户信息 (包括密码的密文 和 盐) 存入数据库
+        user.setPassword(sha256Hash.toBase64());//密文采用base64格式化
+
+//        String password="abc";//密码明文
+//        String salt=UUID.randomUUID().toString();//盐
+//        Integer iter = 1000;//迭代次数
+//        String pwd = new Md5Hash(password, salt,iter).toString(); //md5加密
+//        String pwd = new Md5Hash(password, salt, iter).toBase64(); //加密后转base64
+//
+//        String pwd = new Sha256Hash(password, salt, iter).toString();//sha256加密
+//        String pwd = new Sha256Hash(password, salt, iter).toBase64();//加密后转base64
+//
+//        String pwd = new Sha512Hash(password, salt, iter).toString();//sha256加密
+//        String pwd = new Sha512Hash(password, salt, iter).toBase64()//加密后转base64
         userMapper.insert(user);
         return user;
     }

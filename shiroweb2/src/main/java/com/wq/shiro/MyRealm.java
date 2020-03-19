@@ -66,6 +66,7 @@ public class MyRealm extends AuthorizingRealm {
         // 将 当前用户的认证信息存入 SimpleAuthenticationInfo 并返回
         // 注意此方法的本职工作就是查询用户的信息，所以查到后不用比对密码是否正确，那是shiro后续流程的职责。
         // 如果密码错误，shiro的后续流程中会抛出异常IncorrectCredentialsException
+        // 注意这里的盐需要转成字节
         return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), ByteSource.Util.bytes(user.getSalt()),getName());
         /**
          补充: 可以在user表中增加一列，用于存储用户是否被锁定，则查询的User对象中会有是否锁定的属性

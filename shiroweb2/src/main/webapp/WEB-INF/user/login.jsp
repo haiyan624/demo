@@ -1,26 +1,17 @@
+<!-- 登录页面 login.jsp 自动填充用户名 -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
-    <title>login</title>
+    <title>Title</title>
 </head>
-
 <body>
-<shiro:authenticated>
-    欢迎您，<shiro:principal/>
-</shiro:authenticated>
-
-<shiro:user> <!-- 常用，包含已登录 且配合记住我，用户体验好 -->
-    欢迎您,<shiro:principal/>
-</shiro:user>
-
-<shiro:guest>
-    欢迎您，未登录，请<a href="<c:url value="/user/login/page"/>">登录</a>
-</shiro:guest>
-
-<shiro:notAuthenticated>
-    您尚未登录(记住我也算在未登录中)
-</shiro:notAuthenticated>
-
+<form action="<c:url value="/user/login/logic"/>" method="post">
+    <!-- 重点在此：<shiro:principal/> -->
+    username:<input type="text" name="username" value="<shiro:principal/>"> <br>
+    password:<input type="password" name="password"><br>
+    <input type="submit" value="登录">
+</form>
 </body>
 </html>

@@ -10,9 +10,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -24,15 +22,22 @@ public class ShiroController {
     private UserService userService;
 
     @RequestMapping("/auth")
-    public String deleteUser() {//访问此删除功能时要先经过shiro的安全校验
+    public String auth() {//访问此删除功能时要先经过shiro的安全校验
         return "WEB-INF/user/authCheck";
     }
 
-    @RequestMapping(value = "/login/logic", method = RequestMethod.GET)
-    public String login(String username, String password){//登录功能不能被shiro校验，否则永不能登录
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
+    @RequestMapping("/success")
+    public String success() {//访问此删除功能时要先经过shiro的安全校验
+        return "WEB-INF/user/success";
+    }
+
+    @RequestMapping("/login/page")
+    public String login() {//访问此删除功能时要先经过shiro的安全校验
+        return "WEB-INF/user/login";
+    }
+
+    @RequestMapping(value = "/login/logic", method = RequestMethod.POST)
+    public String logic(@ModelAttribute User user){//登录功能不能被shiro校验，否则永不能登录
         try {
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());

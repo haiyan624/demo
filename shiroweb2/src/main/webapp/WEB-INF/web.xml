@@ -28,7 +28,7 @@
 
     <!-- 会从spring工厂中获取和它同名的bean，（id="shiroFilter"）
      接到请求后调用bean的doFilter方法，进行访问控制。
--->
+    -->
     <filter>
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
