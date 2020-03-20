@@ -83,6 +83,11 @@
                 }
         -->
         <property name="sessionValidationInterval" value="3600000"/>
+            <property name="sessionDAO">
+                <bean class="com.wq.cache.MyShiroSessionDao">
+                    <property name="redisTemplate" ref="shiroRedisTemplate"/>
+                </bean>
+        </property>
     </bean>
     <bean id="myShiroCacheManager" class="com.wq.cache.MyShiroCacheManager">
         <property name="redisTemplate" ref="redisTemplate"/>

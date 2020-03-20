@@ -52,4 +52,8 @@
           p:hashValueSerializer-ref="fast"
           p:stringSerializer-ref="ss"
           p:valueSerializer-ref="fast"/>
+
+    <bean id="shiroRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+          p:connectionFactory-ref="jedisConnectionFactory"
+          p:keySerializer-ref="ss"/>
 </beans>
