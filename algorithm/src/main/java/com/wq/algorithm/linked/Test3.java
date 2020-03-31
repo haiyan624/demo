@@ -1,16 +1,12 @@
-package com.example.demo.controller;
+package com.wq.algorithm.linked;
 
-import com.example.demo.controller.entity.Node;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Stack;
-import java.util.Vector;
 
 @RestController
 @RequestMapping("/test2")

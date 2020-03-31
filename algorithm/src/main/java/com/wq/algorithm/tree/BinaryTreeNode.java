@@ -1,4 +1,4 @@
-package com.example.demo.algorithm.tree.model;
+package com.wq.algorithm.tree;
 
 import lombok.Data;
 

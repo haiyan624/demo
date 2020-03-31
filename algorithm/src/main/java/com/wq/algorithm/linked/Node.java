@@ -1,4 +1,4 @@
-package com.example.demo.controller.entity;
+package com.wq.algorithm.linked;
 
 
 import lombok.AllArgsConstructor;

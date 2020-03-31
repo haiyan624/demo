@@ -1,4 +1,4 @@
-package com.example.demo.controller.com;
+package com.wq.algorithm.sort;
 
 import java.util.Arrays;
 import java.util.Stack;

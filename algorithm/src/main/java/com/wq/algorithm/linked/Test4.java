@@ -1,6 +1,4 @@
-package com.example.demo.controller;
-
-import com.example.demo.controller.entity.Node;
+package com.wq.algorithm.linked;
 
 import java.util.Stack;
 

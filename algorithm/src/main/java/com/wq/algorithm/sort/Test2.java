@@ -1,6 +1,4 @@
-package com.example.demo.controller;
-
-import java.util.Stack;
+package com.wq.algorithm.sort;
 
 public class Test2 {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.wq.algorithm.sort;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
