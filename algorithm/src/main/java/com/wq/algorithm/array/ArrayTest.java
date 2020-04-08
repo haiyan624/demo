@@ -1,7 +1,6 @@
 package com.wq.algorithm.array;
 
 public class ArrayTest {
-
     public static void declare(){
 
         // 这里必须声明数组大小
