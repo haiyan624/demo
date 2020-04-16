@@ -2,7 +2,6 @@ package com.wq.rabbit.simple;
 
 import com.rabbitmq.client.*;
 import com.wq.rabbit.util.ConnectionUtil;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -24,7 +23,6 @@ public class Receive {
         channel.queueDeclare(QUEUE_NAME,false, false,false,null);
 
         DefaultConsumer consumer = new DefaultConsumer(channel){
-            @SneakyThrows
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body){
                 String msg = new String (body);

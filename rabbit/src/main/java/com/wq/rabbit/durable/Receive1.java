@@ -1,4 +1,4 @@
-package com.wq.rabbit.work;
+package com.wq.rabbit.durable;
 
 import com.rabbitmq.client.*;
 import com.wq.rabbit.util.ConnectionUtil;

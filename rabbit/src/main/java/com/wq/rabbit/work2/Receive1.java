@@ -12,7 +12,7 @@ public class Receive1 {
 
     public static void main(String[] args) throws IOException, TimeoutException {
         Connection connection = ConnectionUtil.getConnection();
-        Channel channel = connection.createChannel();
+        final Channel channel = connection.createChannel();
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
         int prefetchCount = 1;
         channel.basicQos(prefetchCount);

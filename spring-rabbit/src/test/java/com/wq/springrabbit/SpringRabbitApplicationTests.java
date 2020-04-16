@@ -1,10 +1,10 @@
-package com.wq.rabbit;
+package com.wq.springrabbit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RabbitApplicationTests {
+class SpringRabbitApplicationTests {
 
     @Test
     void contextLoads() {

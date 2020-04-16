@@ -17,7 +17,7 @@ public class Receive1 {
 
     public static void main(String[] args) throws IOException, TimeoutException {
         Connection connection = ConnectionUtil.getConnection();
-        Channel channel = connection.createChannel();
+        final Channel channel = connection.createChannel();
 
         channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
@@ -35,7 +35,5 @@ public class Receive1 {
         };
 
         channel.basicConsume(QUEUE_NAME, false, consumer);
-//        channel.close();
-//        connection.close();
     }
 }
