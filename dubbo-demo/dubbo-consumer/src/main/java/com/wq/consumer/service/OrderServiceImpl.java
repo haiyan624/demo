@@ -6,13 +6,12 @@ import com.wq.dinterface.service.UserService;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Reference(loadbalance = "random", timeout = 1000, version = "1.0.0")
+    @Reference
     UserService userService;
 
     @Override

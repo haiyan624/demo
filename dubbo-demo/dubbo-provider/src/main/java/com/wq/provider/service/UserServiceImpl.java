@@ -16,9 +16,9 @@ public class UserServiceImpl implements UserService {
     public List<UserAddress> getUserAddressList(String userId) {
         UserAddress address1 = new UserAddress(1, "山东省青岛市", "1", "张三", "6666", "Y");
         UserAddress address2 = new UserAddress(2, "四川省成都市", "1", "李四", "8888", "N");
-//        if (Math.random() > 0.5) {
-//            throw new RuntimeException();
-//        }
+        if (Math.random() > 0.5) {
+            throw new RuntimeException();
+        }
         return Arrays.asList(address1, address2);
     }
 
