@@ -26,6 +26,12 @@ public class Node {
      */
     public Node rightNode;
 
+    public Node(int index){
+        this.index=index;
+    }
+
+    public Node(){
+    }
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
